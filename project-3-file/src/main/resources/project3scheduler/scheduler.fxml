@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project3scheduler.ClinicManagerController">
+    <bottom>
+        <TextArea fx:id="outputArea" prefHeight="125.0" prefWidth="600.0" BorderPane.alignment="CENTER" />
+    </bottom>
+    <center>
+        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Schedule/Cancel">
+                    <content>
+                        <AnchorPane>
+                            <GridPane layoutX="4.0" layoutY="6.0" prefHeight="241.0" prefWidth="300.0" AnchorPane.bottomAnchor="-2.0" AnchorPane.leftAnchor="4.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="6.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                           <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <Label text="       Appointment Date" GridPane.rowIndex="1" />
+                                <DatePicker fx:id="appointmentDatePicker" onAction="#parseAppointmentDate" prefHeight="25.0" prefWidth="175.0" promptText="Select Date" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                <Label fx:id="appointmentDateErrorLabel" textFill="red" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                <Label prefHeight="32.0" prefWidth="115.0" text="       Patient" GridPane.rowIndex="2" />
+
+                                <VBox prefWidth="349.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                                    <children>
+                                        <Label fx:id="firstNameErrorLabel" textFill="red" visible="false" />
+                                        <TextField fx:id="firstNameField" prefHeight="25.0" prefWidth="349.0" promptText="First Name" />
+                                        <TextField fx:id="lastNameField" prefHeight="25.0" prefWidth="349.0" promptText="Last Name" />
+                                        <Label fx:id="lastNameErrorLabel" textFill="red" visible="false" />
+                                        <DatePicker fx:id="dobPicker" onAction="#parseBirthday" prefHeight="12.0" prefWidth="175.0" promptText="Select Date" />
+                                        <Label fx:id="dateErrorLabel" textFill="red" visible="false" />
+
+                                        <HBox />
+
+                                        <HBox />
+
+                                        <HBox />
+                                    </children>
+                                </VBox>
+                                <Button fx:id="scheduleButton" disable="true" mnemonicParsing="false" onAction="#scheduleAppointment" prefHeight="25.0" prefWidth="110.0" text="Schedule" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                <ComboBox fx:id="providerComboBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="172.0" promptText="Providers" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+                                    <opaqueInsets>
+                                        <Insets />
+                                    </opaqueInsets>
+                                </ComboBox>
+                                <ComboBox fx:id="timeslotComboBox" prefHeight="25.0" prefWidth="110.0" promptText="Timeslot" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="4">
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin></ComboBox>
+                                <Button fx:id="cancelButton" alignment="CENTER" disable="true" mnemonicParsing="false" onAction="#cCommand" prefHeight="25.0" prefWidth="110.0" text="Cancel" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+                                <RadioButton fx:id="imagingServiceRadio" onAction="#checkAppointmentType" prefHeight="25.0" prefWidth="110.0" text="Imaging Service" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3" />
+                                <RadioButton fx:id="officeVisitRadio" onAction="#checkAppointmentType" prefHeight="25.0" prefWidth="110.0" text="Office Visit" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
+                                <Button mnemonicParsing="false" onAction="#clear" prefHeight="40.0" prefWidth="43.0" text="Clear" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+                                    <GridPane.margin>
+                                        <Insets top="20.0" />
+                                    </GridPane.margin></Button>
+                            </GridPane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Reschedule">
+                    <content>
+                        <AnchorPane>
+                            <GridPane layoutX="8.0" layoutY="-2.0" prefHeight="253.0" prefWidth="592.0" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                    <ColumnConstraints hgrow="SOMETIMES" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                <Label text="Appointment Date" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                                <DatePicker fx:id="originalAppointmentDate" onAction="#parseRAppointmentDate" promptText="Select Date" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                                <Label fx:id="originalAppointmentDateErrorLabel" textFill="red" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="0" />
+                                <Label text="Patient" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+
+                                <VBox prefWidth="299.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                    <children>
+                                        <TextField fx:id="rPatientFirstName" promptText="First Name" />
+                                        <Label fx:id="rFirstNameErrorLabel" textFill="red" visible="false" />
+                                        <TextField fx:id="rPatientLastName" promptText="Last Name" />
+                                        <Label fx:id="rLastNameErrorLabel" textFill="red" visible="false" />
+
+                                        <DatePicker fx:id="rPatientBirthday" onAction="#parseRBirthday" prefHeight="12.0" prefWidth="175.0" promptText="Select Date" />
+                                        <Label fx:id="rDateErrorLabel" textFill="red" visible="false" />
+
+                                        <HBox />
+
+                                        <HBox />
+
+                                        <HBox />
+                                    </children>
+                                </VBox>
+                                <ComboBox fx:id="currentTimeslot" prefHeight="25.0" prefWidth="107.0" promptText="Current Timeslot" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="3">
+                                    <GridPane.margin>
+                                        <Insets />
+                                    </GridPane.margin></ComboBox>
+                                <ComboBox fx:id="newTimeslot" prefWidth="150.0" promptText="New Timeslot" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+                                    <HBox.margin>
+                                        <Insets />
+                                    </HBox.margin>
+                                </ComboBox>
+                                <Button fx:id="reschedule" disable="true" mnemonicParsing="false" onAction="#rCommand" prefHeight="25.0" prefWidth="110.0" text="Reschedule" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+                                <Button mnemonicParsing="false" onAction="#rClear" onMouseExited="#showTimeslots" prefHeight="25.0" prefWidth="110.0" text="Clear" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                            </GridPane>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="View Appointment List">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;">
+                        <GridPane alignment="CENTER" hgap="10" vgap="10" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
+                            </rowConstraints>
+
+                            <!-- Left Column: Vertical Box with 5 Buttons -->
+                            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0">
+                                <Label text="Sort Appointment List By:" textAlignment="CENTER" />
+                                <Button onAction="#sortByAppointment" prefWidth="150.0" text="Appointment Date" />
+                                <Button onAction="#sortByLocation" prefWidth="150.0" text="Location" />
+                                <Button onAction="#sortByPatient" prefWidth="150.0" text="Patient" />
+                                <Label text="Filter By:" textAlignment="CENTER" />
+                                <Button onAction="#poCommand" prefWidth="150.0" text="Office Appointments" />
+                                <Button onAction="#piCommand" prefWidth="150.0" text="Imaging Appointments" />
+                            </VBox>
+
+                            <!-- Right Column: Output Field for List Display -->
+                            <ListView fx:id="appointmentListView" prefHeight="200.0" prefWidth="350.0" GridPane.columnIndex="1" />
+                        </GridPane>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="View Billing Statements">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;">
+                        <GridPane alignment="CENTER" hgap="10" vgap="10" AnchorPane.bottomAnchor="12.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="17.0" AnchorPane.topAnchor="12.0">
+                            <columnConstraints>
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="150.0" />
+                                <ColumnConstraints hgrow="ALWAYS" minWidth="350.0" />
+                            </columnConstraints>
+                            <rowConstraints>
+                                <RowConstraints vgrow="ALWAYS" />
+                            </rowConstraints>
+
+                            <!-- Left Column: Vertical Box with 5 Buttons -->
+                            <VBox alignment="CENTER" spacing="10" GridPane.columnIndex="0">
+
+                                <Button onAction="#viewPatientBillingStatements" prefWidth="150.0" text="View Patient Billing Statements" />
+                                <Button onAction="#printProviderCredits" prefWidth="150.0" text="View Provider Credits" />
+                            </VBox>
+
+                            <!-- Right Column: Output Field for List Display -->
+                            <ListView fx:id="statementListView" prefHeight="200.0" prefWidth="350.0" GridPane.columnIndex="1" />
+                        </GridPane>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Clinic Locations">
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tbl_location" prefHeight="200.0" prefWidth="400.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                            <columns>
+                                <TableColumn fx:id="col_city" prefWidth="129.0" text="City" />
+                                <TableColumn fx:id="col_county" prefWidth="129.0" text="County" />
+                                <TableColumn fx:id="col_zip" prefWidth="103.0" text="Zip" />
+                            </columns>
+                        </TableView>
+                    </AnchorPane>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+</BorderPane>
